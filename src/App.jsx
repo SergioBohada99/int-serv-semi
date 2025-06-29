@@ -9,9 +9,9 @@ import { useAuth } from './components/AuthContext.jsx'
 import { useEffect, useState } from 'react'
 
 function App() {
-  //const { token, setToken, setRol, rol } = useAuth()
-  const test = true
-  const rol = 'ADMINISTRATOR'
+  const { token, setToken, setRol, rol } = useAuth()
+  //const test = true
+  //const rol = 'ADMINISTRATOR'
   const [pathUrl, setPathUrl] = useState('')
   useEffect(() => {
     try {
@@ -43,7 +43,7 @@ function App() {
           <Route
             path={'/'}
             element={
-              test ? (
+              token ? (
                 rol === 'ADMINISTRATOR' ? (
                   <Dashboard />
                 ) : rol === 'STUDENT' ? (
