@@ -1,47 +1,47 @@
-import Reac, { useState } from "react";
-import RecursosList from "../estudiante_elements/RecursosList.jsx";
-import { DatePicker, TimePicker } from "@mui/x-date-pickers";
-import { useDate } from "../../DateFormaterContext.jsx";
-import Divider from "@mui/material/Divider";
-import registerDisponibilidad from "../../../api/unidad_servicios/disponibilidadRegis.js";
-import { useAuth } from "../../AuthContext.jsx";
-import { useAlert } from "../../AlertContext.jsx";
-import GlobalAlert from "../../GlobalAlert.jsx";
-import regisReserva from "../../../api/users/consultas/registerReserva.js";
+import Reac, { useState } from 'react'
+import RecursosList from '../estudiante_elements/RecursosList.jsx'
+import { DatePicker, TimePicker } from '@mui/x-date-pickers'
+import { useDate } from '../../DateFormaterContext.jsx'
+import Divider from '@mui/material/Divider'
+import registerDisponibilidad from '../../../api/unidad_servicios/disponibilidadRegis.js'
+import { useAuth } from '../../AuthContext.jsx'
+import { useAlert } from '../../AlertContext.jsx'
+import GlobalAlert from '../../GlobalAlert.jsx'
+import regisReserva from '../../../api/users/consultas/registerReserva.js'
 
 function RecursosEs() {
-  const [resID, setResID] = useState(null);
-  const [qnt, setQnt] = useState(null);
-  const [date, setDate] = useState(null);
-  const [timeInit, setTimeInit] = useState(null);
-  const [timeEnd, setTimeEnd] = useState(null);
+  const [resID, setResID] = useState(null)
+  const [qnt, setQnt] = useState(null)
+  const [date, setDate] = useState(null)
+  const [timeInit, setTimeInit] = useState(null)
+  const [timeEnd, setTimeEnd] = useState(null)
   const [formatedTime, setFromatedTime] = useState({
-    date: "",
-    timeStart: "",
-    timeEnd: "",
-  });
-  const { formatDateUnidad, formatTimeUnidad } = useDate();
-  const [alertType, setAlertType] = useState(null);
-  const { token } = useAuth();
-  const { setOpen } = useAlert();
+    date: '',
+    timeStart: '',
+    timeEnd: '',
+  })
+  const { formatDateUnidad, formatTimeUnidad } = useDate()
+  const [alertType, setAlertType] = useState(null)
+  const { token } = useAuth()
+  const { setOpen } = useAlert()
 
   const handleTimeInit = (time) => {
-    setTimeInit(time);
-    setFromatedTime({ ...formatedTime, timeStart: formatTimeUnidad(time) });
-  };
+    setTimeInit(time)
+    setFromatedTime({ ...formatedTime, timeStart: formatTimeUnidad(time) })
+  }
 
   const handleTimeEnd = (time) => {
-    setTimeEnd(time);
-    setFromatedTime({ ...formatedTime, timeEnd: formatTimeUnidad(time) });
-  };
+    setTimeEnd(time)
+    setFromatedTime({ ...formatedTime, timeEnd: formatTimeUnidad(time) })
+  }
 
   const handleDate = (date) => {
-    setDate(date);
-    setFromatedTime({ ...formatedTime, date: formatDateUnidad(date) });
-  };
+    setDate(date)
+    setFromatedTime({ ...formatedTime, date: formatDateUnidad(date) })
+  }
 
   const handleSend = async () => {
-    console.log(formatedTime);
+    console.log(formatedTime)
     let response = await regisReserva(
       resID,
       formatedTime.date,
@@ -49,10 +49,10 @@ function RecursosEs() {
       formatedTime.timeEnd,
       qnt,
       token
-    );
-    setAlertType(response);
-    setOpen(true);
-  };
+    )
+    setAlertType(response)
+    setOpen(true)
+  }
   return (
     <div className="contenido_unidad">
       <div className="unidad_lista">
@@ -63,26 +63,126 @@ function RecursosEs() {
           <Divider sx={{ marginTop: -1.5, marginBottom: 4 }} />
           <div className="unDash-datePicker">
             <div className="unDash-datePicker-container">
-              <div>
-                <p>Día y mes</p>
-                <DatePicker
-                  value={date}
-                  onChange={(newValue) => handleDate(newValue)}
-                />
-              </div>
-              <div>
-                <p>Hora de inicio</p>
-                <TimePicker
-                  value={timeInit}
-                  onChange={(newValue) => handleTimeInit(newValue)}
-                />
-              </div>
-              <div>
-                <p>Hora de final</p>
-                <TimePicker
-                  value={timeEnd}
-                  onChange={(newValue) => handleTimeEnd(newValue)}
-                />
+              <div
+                style={{
+                  backgroundColor: 'var(--body-color)',
+                  padding: '16px',
+                  borderRadius: '8px',
+                }}
+              >
+                <div style={{ marginBottom: '16px' }}>
+                  <p
+                    style={{ color: 'var(--text-color)', marginBottom: '8px' }}
+                  >
+                    Día y mes
+                  </p>
+                  <DatePicker
+                    value={date}
+                    onChange={(newValue) => handleDate(newValue)}
+                    slotProps={{
+                      textField: {
+                        sx: {
+                          '& .MuiOutlinedInput-root': {
+                            '& fieldset': {
+                              borderColor: 'var(--primary-color)',
+                            },
+                            '&:hover fieldset': {
+                              borderColor: 'var(--secondary-color)',
+                            },
+                            '&.Mui-focused fieldset': {
+                              borderColor: 'var(--primary-color-soft)',
+                            },
+                          },
+                          '& .MuiInputBase-input': {
+                            color: 'var(--text-color)',
+                          },
+                          '& label': {
+                            color: 'var(--text-color)',
+                          },
+                          '& label.Mui-focused': {
+                            color: 'var(--primary-color)',
+                          },
+                        },
+                      },
+                    }}
+                  />
+                </div>
+
+                <div style={{ marginBottom: '16px' }}>
+                  <p
+                    style={{ color: 'var(--text-color)', marginBottom: '8px' }}
+                  >
+                    Hora de inicio
+                  </p>
+                  <TimePicker
+                    value={timeInit}
+                    onChange={(newValue) => handleTimeInit(newValue)}
+                    slotProps={{
+                      textField: {
+                        sx: {
+                          '& .MuiOutlinedInput-root': {
+                            '& fieldset': {
+                              borderColor: 'var(--primary-color)',
+                            },
+                            '&:hover fieldset': {
+                              borderColor: 'var(--secondary-color)',
+                            },
+                            '&.Mui-focused fieldset': {
+                              borderColor: 'var(--primary-color-soft)',
+                            },
+                          },
+                          '& .MuiInputBase-input': {
+                            color: 'var(--text-color)',
+                          },
+                          '& label': {
+                            color: 'var(--text-color)',
+                          },
+                          '& label.Mui-focused': {
+                            color: 'var(--primary-color)',
+                          },
+                        },
+                      },
+                    }}
+                  />
+                </div>
+
+                <div>
+                  <p
+                    style={{ color: 'var(--text-color)', marginBottom: '8px' }}
+                  >
+                    Hora de final
+                  </p>
+                  <TimePicker
+                    value={timeEnd}
+                    onChange={(newValue) => handleTimeEnd(newValue)}
+                    slotProps={{
+                      textField: {
+                        sx: {
+                          '& .MuiOutlinedInput-root': {
+                            '& fieldset': {
+                              borderColor: 'var(--primary-color)',
+                            },
+                            '&:hover fieldset': {
+                              borderColor: 'var(--secondary-color)',
+                            },
+                            '&.Mui-focused fieldset': {
+                              borderColor: 'var(--primary-color-soft)',
+                            },
+                          },
+                          '& .MuiInputBase-input': {
+                            color: 'var(--text-color)',
+                          },
+                          '& label': {
+                            color: 'var(--text-color)',
+                          },
+                          '& label.Mui-focused': {
+                            color: 'var(--primary-color)',
+                          },
+                        },
+                      },
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -114,7 +214,7 @@ function RecursosEs() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default RecursosEs;
+export default RecursosEs

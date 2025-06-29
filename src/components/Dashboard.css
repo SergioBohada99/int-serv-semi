@@ -48,6 +48,10 @@ h1 {
 
 /* ====== CSS reusable ====== */
 
+label {
+  color: var(--text-color);
+}
+
 .generic-input {
   background-color: rgba(255, 255, 255, 0.1);
   width: 50%;
@@ -55,7 +59,7 @@ h1 {
   border-radius: 10px;
   border: solid 1px var(--primary-color);
   margin-top: 5px;
-  color: var(--text-color);
+  color: var(--text-color-light);
 }
 
 .sidebar .text {

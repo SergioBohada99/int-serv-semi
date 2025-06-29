@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 function App() {
   const { token, setToken, setRol, rol } = useAuth()
   //const test = true
-  //const rol = 'ADMINISTRATOR'
+  //const rol = 'STUDENT'
   const [pathUrl, setPathUrl] = useState('')
   useEffect(() => {
     try {
